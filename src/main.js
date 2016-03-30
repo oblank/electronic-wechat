@@ -71,6 +71,7 @@ let createWindow = () => {
       browserWindow.webContents.insertCSS(injectBundle.osxCSS);
     }
     browserWindow.webContents.executeJavaScript(`injectBundle.getBadgeJS()`);
+    browserWindow.webContents.executeJavaScript(`injectBundle.appendMenu()`);
   });
 
   browserWindow.webContents.on('new-window', (event, url) => {

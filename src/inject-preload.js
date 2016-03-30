@@ -65,4 +65,55 @@ injectBundle.getBadgeJS = () => {
   }, 1500);
 };
 
+injectBundle.appendMenu = () => {
+  var curr_pos, title = "";
+  var menu, reader;
+  setInterval(() => {
+    reader = document.getElementById("reader");
+    menu = reader ? document.getElementById("mmpop_reader_menu") : false;
+    if (reader && menu) {
+      title = $(".read_item.active .title").text();
+      console.log(title);
+      console.log(reader.src);
+      if (!title || !reader.src) {
+        return;
+      }
+      if ((curr_pos != reader.src) || ($(".reader_menu .dropdown_menu > li").length < 5)) {
+        curr_pos = reader.src;
+        var share_url = encodeURIComponent(reader.src);
+        var share_title = encodeURIComponent(title);
+        var html = reader.contentDocument.body.innerHTML;
+        var share_weibo = `http://service.weibo.com/share/share.php?url=${share_url}&title=${share_title}%20&searchPic=yes`;
+        var share_twitter = `https://twitter.com/intent/tweet?text=${share_title}&url=${share_url}&via=&original_referer=`;
+        var share_email = "";
+        var share_qzone = "";
+        var share_facebook = "";
+        var menuHtml = `
+          <li>
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_weibo}', '_blank'); return;">
+              <i class="menuicon_copylink"></i>
+              分享到微博
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_twitter}', '_blank'); return;">
+              <i class="menuicon_copylink"></i>
+              分享到Twitter
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('mailto:dyh1919@gmail.com?&subject=${share_title}&body=${share_title}%0A${share_url}', '_blank'); return;">
+              <i class="menuicon_copylink"></i>
+              邮件分享
+            </a>
+          </li>
+        `;
+        $(".reader_menu .dropdown_menu").prepend(menuHtml);
+      }
+    }
+
+  }, 1000);
+
+}
+
 menu.create();
