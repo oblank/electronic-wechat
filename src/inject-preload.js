@@ -85,9 +85,9 @@ injectBundle.appendMenu = () => {
         var html = reader.contentDocument.body.innerHTML;
         var share_weibo = `http://service.weibo.com/share/share.php?url=${share_url}&title=${share_title}%20&searchPic=yes`;
         var share_twitter = `https://twitter.com/intent/tweet?text=${share_title}&url=${share_url}&via=&original_referer=`;
-        var share_email = "";
-        var share_qzone = "";
-        var share_facebook = "";
+        var share_email = `mailto:dyh1919@gmail.com?&subject=${share_title}&body=${share_title}%0A${share_url}`;
+        var share_qzone = `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${share_url}&title=${share_title}&pics=&summary=`;
+        var share_facebook = `https://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=${share_title}&p%5Bsummary%5D=%21&p%5Burl%5D=${share_url}&p%5Bimages%5D=`;
         var menuHtml = `
           <li>
             <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_weibo}', '_blank'); return;">
@@ -102,7 +102,19 @@ injectBundle.appendMenu = () => {
             </a>
           </li>
           <li>
-            <a href="javascript:;" target="_blank" onclick="javascript:window.open('mailto:dyh1919@gmail.com?&subject=${share_title}&body=${share_title}%0A${share_url}', '_blank'); return;">
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_qzone}', '_blank'); return;">
+              <i class="menuicon_copylink"></i>
+              分享到QQ空间
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_facebook}', '_blank'); return;">
+              <i class="menuicon_copylink"></i>
+              分享到FaceBook
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_email}', '_blank'); return;">
               <i class="menuicon_copylink"></i>
               邮件分享
             </a>
