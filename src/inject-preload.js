@@ -112,7 +112,7 @@ injectBundle.appendMenu = () => {
       }
     }
 
-  }, 1000);
+  }, 500);
 
 }
 
