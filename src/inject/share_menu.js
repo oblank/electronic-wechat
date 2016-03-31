@@ -3,8 +3,8 @@
  */
 "use strict";
 
-let genShareMenu = (links) => {
-    if (!links.url && !links.title) {
+let genShareMenu = (link) => {
+    if (!link.url && !link.title) {
         return "";
     }
 
@@ -12,10 +12,10 @@ let genShareMenu = (links) => {
     let share_weibo, share_twitter, share_email, share_qzone, share_facebook;
     let hash_tag = "微信好文分享";
 
-    share_url = encodeURIComponent(links.url);
-    share_title = encodeURIComponent(links.title);
-    title4weibo = encodeURIComponent(`${links.title} #${hash_tag}#`);
-    title4twitter = encodeURIComponent(`${links.title} #${hash_tag}`);
+    share_url = encodeURIComponent(link.url);
+    share_title = encodeURIComponent(link.title);
+    title4weibo = encodeURIComponent(`${link.title} #${hash_tag}#`);
+    title4twitter = encodeURIComponent(`${link.title} #${hash_tag}`);
     title4fb = title4twitter;
 
     share_weibo = `http://service.weibo.com/share/share.php?url=${share_url}&title=${title4weibo}#&searchPic=yes`;
