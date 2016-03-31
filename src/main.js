@@ -88,7 +88,38 @@ class ElectronicWeChat {
     } else {
       this.tray.on('click', () => this.browserWindow.show());
     }
+<<<<<<< HEAD
   }
+=======
+  });
+
+  browserWindow.on('closed', () => {
+    browserWindow = null;
+    appIcon.destroy();
+    appIcon = null;
+  });
+
+  browserWindow.on('page-title-updated', (ev) => {
+    ev.preventDefault();
+  });
+
+  browserWindow.webContents.on('dom-ready', () => {
+    browserWindow.webContents.insertCSS(injectBundle.wechatCSS);
+    if (process.platform == "darwin") {
+      browserWindow.webContents.insertCSS(injectBundle.osxCSS);
+    }
+    browserWindow.webContents.executeJavaScript(`injectBundle.getBadgeJS()`);
+    browserWindow.webContents.executeJavaScript(`injectBundle.appendMenu()`);
+  });
+
+  browserWindow.webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(messageHandler.handleRedirectMessage(url));
+  });
+
+  createTray();
+};
+>>>>>>> origin/master
 
   resizeWindow(isLogged) {
     const size = isLogged ? Common.WINDOW_SIZE : Common.WINDOW_SIZE_LOGIN;
