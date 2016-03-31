@@ -67,6 +67,7 @@ injectBundle.getBadgeJS = () => {
 
 injectBundle.appendMenu = () => {
   var curr_pos, title = "";
+  var hash_tag = "微信好文分享";
   var menu, reader;
   setInterval(() => {
     reader = document.getElementById("reader");
@@ -82,12 +83,15 @@ injectBundle.appendMenu = () => {
         curr_pos = reader.src;
         var share_url = encodeURIComponent(reader.src);
         var share_title = encodeURIComponent(title);
-        var html = reader.contentDocument.body.innerHTML;
-        var share_weibo = `http://service.weibo.com/share/share.php?url=${share_url}&title=${share_title}%20&searchPic=yes`;
-        var share_twitter = `https://twitter.com/intent/tweet?text=${share_title}&url=${share_url}&via=&original_referer=`;
-        var share_email = `mailto:dyh1919@gmail.com?&subject=${share_title}&body=${share_title}%0A${share_url}`;
+        var title4weibo = encodeURIComponent(`${title} #${hash_tag}#`);
+        var title4twitter = encodeURIComponent(`${title} #${hash_tag}`);
+        var title4fb = title4twitter;
+        //var html = reader.contentDocument.body.innerHTML;
+        var share_weibo = `http://service.weibo.com/share/share.php?url=${share_url}&title=${title4weibo}#&searchPic=yes`;
+        var share_twitter = `https://twitter.com/intent/tweet?text=${title4twitter}&url=${share_url}&original_referer=`;
+        var share_email = `mailto:?&subject=${share_title}&body=${share_title}%0A${share_url}`;
         var share_qzone = `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${share_url}&title=${share_title}&pics=&summary=`;
-        var share_facebook = `https://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=${share_title}&p%5Bsummary%5D=%21&p%5Burl%5D=${share_url}&p%5Bimages%5D=`;
+        var share_facebook = `https://www.facebook.com/sharer/sharer.php?s=100&p%5Btitle%5D=${title4fb}&p%5Bsummary%5D=%21&p%5Burl%5D=${share_url}&p%5Bimages%5D=`;
         var menuHtml = `
           <li>
             <a href="javascript:;" target="_blank" onclick="javascript:window.open('${share_weibo}', '_blank'); return;">
