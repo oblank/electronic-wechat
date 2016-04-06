@@ -4,16 +4,20 @@
 "use strict";
 
 class ShareMenu {
+  const hash_tag = "微信好文分享";
 
   get(link) {
     if (!link.url || !link.title) return "";
 
+    link.weibo = encodeURIComponent(`${link.title} #${this.hash_tag}#`);
+    link.tweet = encodeURIComponent(`${link.title} #${this.hash_tag}`);
     link.url = encodeURIComponent(link.url);
     link.title = encodeURIComponent(link.title);
 
+
     let shareTargets = {
       'weibo': {
-        url: `http://service.weibo.com/share/share.php?url=${link.url}&title=${link.title}#&searchPic=yes`,
+        url: `http://service.weibo.com/share/share.php?url=${link.url}&title=${link.weibo}#&searchPic=yes`,
         text: '分享到微博'
       },
       'qzone': {
@@ -29,7 +33,7 @@ class ShareMenu {
         text: '分享到 Evernote'
       },
       'twitter': {
-        url: `https://twitter.com/intent/tweet?text=${link.title}&url=${link.url}&original_referer=`,
+        url: `https://twitter.com/intent/tweet?text=${link.tweet}&url=${link.url}&original_referer=`,
         text: '分享到 Twitter'
       },
       'email': {
